@@ -12,6 +12,8 @@ This chatbot is here to help you understand your risk of heart disease. This is 
 Answer the questions one by one, and if you have any questions for the chatbot, go ahead and ask them. Once you get your results back, we will provide you with some next steps and resources to follow.
 
 Please contact us if you have any questions!
+
+*** chatbot will be here ***
 """
 
 class Chatbot:
