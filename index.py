@@ -13,7 +13,7 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 
 Please contact us if you have any questions!
 
-*** chatbot will be here ***
+..chatbot will be here..
 """
 
 class Chatbot:
