@@ -12,12 +12,25 @@ This chatbot is here to help you understand your risk of heart disease. This is 
 Answer the questions one by one, and if you have any questions for the chatbot, go ahead and ask them. Once you get your results back, we will provide you with some next steps and resources to follow.
 
 Please contact us if you have any questions!
-
-..chatbot will be here..
 """
 
-class Chatbot:
-  pass
+import panel as pn  # GUI
+pn.extension()
+
+panels = [] # collect display 
+
+context = " "
+
+inp = pn.widgets.TextInput(value="Hi", placeholder='Enter text here…')
+button_conversation = pn.widgets.Button(name="Chat!")
+
+interactive_conversation = pn.bind(collect_messages, button_conversation)
+
+dashboard = pn.Column(
+    inp,
+    pn.Row(button_conversation),
+    pn.panel(interactive_conversation, loading_indicator=True, height=300),
+)
 
 """
 Here is some information on the ASCVD Risk Calculator:
