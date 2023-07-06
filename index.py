@@ -3,6 +3,11 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import panel as on
+import openai 
+
+# pip install streamlit-chat  
+from streamlit_chat import message
 
 """
 # Welcome to the Heart Disease Risk Calculator!
@@ -14,23 +19,48 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-import panel as pn  # GUI
-pn.extension()
+openai.api_key = st.secrets["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"]
 
-panels = [] # collect display 
+def generate_response(prompt):
+    completions = openai.Completion.create(
+        engine = "text-davinci-003",
+        prompt = prompt,
+        max_tokens = 1024,
+        n = 1,
+        stop = None,
+        temperature=0.5,
+    )
+    message = completions.choices[0].text
+    return message 
+    
+# Creating the chatbot interface
+st.title("chatBot : Streamlit + openAI")
 
-context = " "
+# Storing the chat
+if 'generated' not in st.session_state:
+    st.session_state['generated'] = []
 
-inp = pn.widgets.TextInput(value="Hi", placeholder='Enter text here…')
-button_conversation = pn.widgets.Button(name="Chat!")
+if 'past' not in st.session_state:
+    st.session_state['past'] = []
 
-interactive_conversation = pn.bind(collect_messages, button_conversation)
+# We will get the user's input by calling the get_text function
+def get_text():
+    input_text = st.text_input("You: ","Hello, how are you?", key="input")
+    return input_text
 
-dashboard = pn.Column(
-    inp,
-    pn.Row(button_conversation),
-    pn.panel(interactive_conversation, loading_indicator=True, height=300),
-)
+user_input = get_text()
+
+if user_input:
+    output = generate_response(user_input)
+    # store the output 
+    st.session_state.past.append(user_input)
+    st.session_state.generated.append(output)
+
+if st.session_state['generated']:
+    
+    for i in range(len(st.session_state['generated'])-1, -1, -1):
+        message(st.session_state["generated"][i], key=str(i))
+        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
 
 """
 Here is some information on the ASCVD Risk Calculator:
