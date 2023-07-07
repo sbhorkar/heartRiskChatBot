@@ -14,7 +14,7 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-openai.api_key = st.secrets["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"]
+openai.api_key = "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"
 
 def generate_response(prompt):
     completions = openai.Completion.create(
