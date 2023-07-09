@@ -29,7 +29,7 @@ def generate_response(prompt):
     return message 
     
 # Creating the chatbot interface
-st.title("chatBot : Streamlit + openAI")
+st.title("Heart Disease Risk Chatbot")
 
 # Storing the chat
 if 'generated' not in st.session_state:
@@ -40,7 +40,7 @@ if 'past' not in st.session_state:
 
 # We will get the user's input by calling the get_text function
 def get_text():
-    input_text = st.text_input("You: ","Hello, how are you?", key="input")
+    input_text = st.text_input("You: ","Enter anything here", key="input")
     return input_text
 
 user_input = get_text()
