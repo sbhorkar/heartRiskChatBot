@@ -23,7 +23,7 @@ def generate_response(prompt):
         max_tokens = 1024,
         n = 1,
         stop = None,
-        temperature=0.5,
+        temperature = 0,
     )
     message = completions.choices[0].text
     return message 
@@ -32,11 +32,12 @@ def generate_response(prompt):
 st.title("Heart Disease Risk Chatbot")
 
 # Storing the chat
-if 'generated' not in st.session_state:
-    st.session_state['generated'] = []
 
 if 'past' not in st.session_state:
     st.session_state['past'] = []
+
+if 'generated' not in st.session_state:
+    st.session_state['generated'] = []
 
 # We will get the user's input by calling the get_text function
 def get_text():
