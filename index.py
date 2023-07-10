@@ -36,49 +36,39 @@ def get_completion_from_messages(messages, model="gpt-3.5-turbo", temperature=0)
     )
     return response.choices[0].message["content"]
     
-# # Creating the chatbot interface
-# st.title("Heart Disease Risk Chatbot")
+# Creating the chatbot interface
+st.title("Heart Disease Risk Chatbot")
 
-# # Storing the chat
+# Storing the chat
 
-# if 'past' not in st.session_state:
-#     st.session_state['past'] = []
+if 'past' not in st.session_state:
+    st.session_state['past'] = []
 
-# if 'generated' not in st.session_state:
-#     st.session_state['generated'] = []
+if 'generated' not in st.session_state:
+    st.session_state['generated'] = []
 
-# # We will get the user's input by calling the get_text function
-# def get_text():
-#     input_text = st.text_input("You: ","", key="input")
-#     return input_text
+# We will get the user's input by calling the get_text function
+def get_text():
+    input_text = st.text_input("You: ","", key="input")
+    return input_text
 
-# user_input = get_text()
+user_input = get_text()
 
-# if user_input:
-#     output = generate_response(user_input)
-#     # store the output 
-#     st.session_state.generated.append(output)
-#     st.session_state.past.append(user_input)
-
-# if st.session_state['generated']:
-    
-#     for i in range(len(st.session_state['generated'])-1, -1, -1):
-#         message(st.session_state["generated"][i], key=str(i))
-#         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
-
-
-def collect_messages(_):
-    prompt = inp.value_input
-    inp.value = ''
-    context.append({'role':'user', 'content':f"{prompt}"})
+context.append({'role':'user', 'content':f"{prompt}"})
     response = get_completion_from_messages(context) 
     context.append({'role':'assistant', 'content':f"{response}"})
-    panels.append(
-        pn.Row('User:', pn.pane.Markdown(prompt, width=600)))
-    panels.append(
-        pn.Row('Assistant:', pn.pane.Markdown(response, width=600, styles={'background-color': '#F6F6F6'})))
- 
-    return pn.Column(*panels)
+
+if user_input:
+    output = generate_response(user_input)
+    # store the output 
+    st.session_state.generated.append(output)
+    st.session_state.past.append(user_input)
+
+if st.session_state['generated']:
+    
+    for i in range(len(st.session_state['generated'])-1, -1, -1):
+        message(st.session_state["generated"][i], key=str(i))
+        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
 
 context = [ {'role':'system', 'content':"""
 Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and fill in the JSON structure below. Obtain each property one-by-one so your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
@@ -115,26 +105,11 @@ Output:
 ASK ME, THE USER, QUESTIONS ONE BY ONE!
 """} ]  # accumulate messages
 
-
-inp = pn.widgets.TextInput(value="Hi", placeholder='Enter text here…')
-button_conversation = pn.widgets.Button(name="Chat!")
-
-interactive_conversation = pn.bind(collect_messages, button_conversation)
-
-dashboard = pn.Column(
-    inp,
-    pn.Row(button_conversation),
-    pn.panel(interactive_conversation, loading_indicator=True, height=300),
-)
-
-dashboard
-
 messages =  context.copy()
 messages.append(
-{'role':'system', 'content':'create a json summary of the previous food order. Itemize the price for each item\
- The fields should be 1) pizza, include size 2) list of toppings 3) list of drinks, include size   4) list of sides include size  5)total price '},    
+{'role':'system', 'content':'create a json summary of the previous conversation.\
+ The fields should be 1) sex 2) age 3) total cholestrol 4) systolic blood pressure 5) smoker 6) blood pressure med treatment '},    
 )
- #The fields should be 1) pizza, price 2) list of toppings 3) list of drinks, include size include price  4) list of sides include size include price, 5)total price '},    
 
 response = get_completion_from_messages(messages, temperature=0)
 print(response)
