@@ -2,4 +2,4 @@ streamlit
 openai
 streamlit_chat
 panel
-framingham10yr.framingham10yr
+framingham_10year_risk
