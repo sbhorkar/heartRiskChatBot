@@ -14,86 +14,6 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-# openai.api_key = st.secrets["openai"]
-
-# def generate_response(prompt):
-#     completions = openai.Completion.create(
-#         engine = "text-davinci-003",
-#         prompt = prompt,
-#         max_tokens = 1024,
-#         n = 1,
-#         stop = None,
-#         temperature = 0,
-#     )
-#     message = completions.choices[0].text
-#     return message 
-    
-# # Creating the chatbot interface
-# st.title("Heart Disease Risk Chatbot")
-
-# # Storing the chat
-
-# generate_response("Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and fill in the JSON structure below. Obtain each property one-by-one so your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
-# {
-# "sex": either "male"/"female", 
-# "age": number in range 20-70  (if not in range, tell patient that our calculator is not made for their age), 
-# "total_cholesterol":  number in range 130-320, 
-# "hdl_cholesterol": number in range 20-100 ,  
-# "systolic_blood_pressure": number in range 90-200 , 
-# "smoker": 0/1, 
-# "blood_pressure_med_treatment": 0/1
-# }
-# ///
-# If patient don't know following information, use the following number, adjust accordingly if they say that it is low or high. Also, provide information about clinics near them where they can obtain the information:
-# "total_cholesterol":  200, 
-# "hdl_cholesterol": 55 ,  
-# "systolic_blood_pressure": 130
-# Otherwise, all other information in the JSON format is required. We cannot proceed with the calculation without all the required data.
-# ///
-# After the conversation, put the data into JSON format and print it out to me.
-# [Example:
-# Output: 
-# {
-# "sex": "female",
-# "age": 23,
-# "total_cholesterol": 175,
-# "hdl_cholesterol": 55,
-# "systolic_blood_pressure": 130,
-# "smoker": 0,
-# "blood_pressure_med_treatment": 1
-# }
-# ]
-# ///
-# ASK ME, THE USER, QUESTIONS ONE BY ONE!
-# ")
-
-# if 'past' not in st.session_state:
-#     st.session_state['past'] = []
-
-# if 'generated' not in st.session_state:
-#     st.session_state['generated'] = []
-
-# # We will get the user's input by calling the get_text function
-# def get_text():
-#     input_text = st.text_input("You: ","Enter anything here", key="input")
-#     return input_text
-
-# user_input = get_text()
-
-# if user_input:
-#     output = generate_response(user_input)
-#     # store the output 
-#     st.session_state.past.append(user_input)
-#     st.session_state.generated.append(output)
-
-# if st.session_state['generated']:
-    
-#     for i in range(len(st.session_state['generated'])-1, -1, -1):
-#         message(st.session_state["generated"][i], key=str(i))
-#         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
-
-import openai
-
 openai.api_key = st.secrets["openai"]
 
 def get_completion(prompt, model="gpt-3.5-turbo"):
@@ -112,6 +32,37 @@ def get_completion_from_messages(messages, model="gpt-3.5-turbo", temperature=0)
         temperature=temperature, # this is the degree of randomness of the model's output
     )
     return response.choices[0].message["content"]
+    
+# # Creating the chatbot interface
+# st.title("Heart Disease Risk Chatbot")
+
+# # Storing the chat
+
+# if 'past' not in st.session_state:
+#     st.session_state['past'] = []
+
+# if 'generated' not in st.session_state:
+#     st.session_state['generated'] = []
+
+# # We will get the user's input by calling the get_text function
+# def get_text():
+#     input_text = st.text_input("You: ","", key="input")
+#     return input_text
+
+# user_input = get_text()
+
+# if user_input:
+#     output = generate_response(user_input)
+#     # store the output 
+#     st.session_state.generated.append(output)
+#     st.session_state.past.append(user_input)
+
+# if st.session_state['generated']:
+    
+#     for i in range(len(st.session_state['generated'])-1, -1, -1):
+#         message(st.session_state["generated"][i], key=str(i))
+#         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+
 
 def collect_messages(_):
     prompt = inp.value_input
@@ -122,13 +73,9 @@ def collect_messages(_):
     panels.append(
         pn.Row('User:', pn.pane.Markdown(prompt, width=600)))
     panels.append(
-        pn.Row('Assistant:', pn.pane.Markdown(response, width=600, style={'background-color': '#F6F6F6'})))
+        pn.Row('Assistant:', pn.pane.Markdown(response, width=600, styles={'background-color': '#F6F6F6'})))
  
     return pn.Column(*panels)
-import panel as pn  # GUI
-pn.extension()
-
-panels = [] # collect display 
 
 context = [ {'role':'system', 'content':"""
 Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and fill in the JSON structure below. Obtain each property one-by-one so your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
