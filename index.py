@@ -18,12 +18,12 @@ openai.api_key = st.secrets["openai"]
 
 def generate_response(prompt):
     completions = openai.Completion.create(
-        engine = "text-davinci-003",
         prompt = prompt,
         max_tokens = 1024,
         n = 1,
         stop = None,
-        temperature=0.5,
+        model="gpt-3.5-turbo"
+        temperature=0,
     )
     message = completions.choices[0].text
     return message 
@@ -76,7 +76,8 @@ Output:
 ///
 ASK ME, THE USER, QUESTIONS ONE BY ONE!"""
 
-generate_response(context)
+output = generate_response(context)
+st.session_state.generated.append(output)
 
 user_input = get_text()
 
