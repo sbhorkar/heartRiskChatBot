@@ -1,5 +1,6 @@
 import streamlit as st
 import openai
+from framingham10yr.framingham10yr import framingham_10year_risk 
 
 # pip install streamlit-chat  
 from streamlit_chat import message
@@ -13,6 +14,8 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 
 Please contact us if you have any questions!
 """
+def framingham(datai): #get risk calculator result from dictionary (return a dictionary)
+    return framingham_10year_risk(sex=datai['sex'], age=datai['age'], total_cholesterol=datai['total_cholesterol'], hdl_cholesterol=datai['hdl_cholesterol'],  systolic_blood_pressure=datai['systolic_blood_pressure'], smoker=datai['smoker'], blood_pressure_med_treatment=datai['blood_pressure_med_treatment'])
 
 openai.api_key = st.secrets["openai"]
 
@@ -135,6 +138,54 @@ messages.append(
 
 response = get_completion_from_messages(messages, temperature=0)
 print(response)
+
+#CATCHING ERROR PART
+def chat_with_gpt(message):
+    completion = openai.Completion.create(
+        engine="text-davinci-003",  # Use the GPT-3.5 model
+        prompt=message,
+        max_tokens=50,  # Control the response length
+        n=1,  # Generate a single response
+        stop=None,  # Stop generating after this token
+        temperature=0.7,  # Control the randomness of the response
+    )
+
+    response = completion.choices[0].text.strip()
+    return response
+
+def identify_error(message, json):
+    response = chat_with_gpt("the JSON object is the following: " + str(json) +" there are these following errors: "+ str(message)+ "please tell me which property in the JSON object have an error")
+    properties = ["sex","age","total_cholesterol","hdl_cholesterol","systolic_blood_pressure","smoker","blood_pressure_med_treatment"]
+    errors = []
+    for item in properties:
+        if item in response:
+            errors.append(item)
+    return errors
+
+def fix(message, info):
+    info = {}
+    original = info
+    # Start the conversation with the user
+    errors = identify_error(message,info)
+    
+    x = 0
+    for error in errors:
+        initial = "Assume the role of a kind medical assistant collecting info from your patient/user to calculate CVD risk. There is an error: " + message[x] + ". Tell the patient of the error and ask them for new, correct answer. If the patient tell you the corrected answer, please say '123DONE' [ASK ME, YOUR USER!]"
+        response = chat_with_gpt(initial)
+        while ('123DONE' not in response) :
+            print (response)
+            user_i = input("User: ")
+            response = chat_with_gpt(user_i)
+        endpoint = find("123DONE")
+        print(response[0:endpoint])
+        response = chat_with_gpt("What is the corrected value for " + error + " from the user? Answer with just the value e.g. '56'"")
+        json[error] = response
+        x += 1
+    return info
+
+while (result['status'] == 422) :
+    data = fix(result['errors'], data)
+    result = framingham(data)
 
 """
 Here is some information on the ASCVD Risk Calculator:
