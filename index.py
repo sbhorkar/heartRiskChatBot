@@ -178,7 +178,7 @@ def fix(message, info):
             response = chat_with_gpt(user_i)
         endpoint = find("123DONE")
         print(response[0:endpoint])
-        response = chat_with_gpt("What is the corrected value for " + error + " from the user? Answer with just the value e.g. '56'"")
+        response = chat_with_gpt("What is the corrected value for " + error + " from the user? Answer with just the value e.g. '56'")
         json[error] = response
         x += 1
     return info
