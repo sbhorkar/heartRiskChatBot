@@ -43,7 +43,7 @@ def get_text():
     input_text = st.text_input("You: ","", key="input")
     return input_text
 
-context = "Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and fill in the JSON structure below. Obtain each property one-by-one so your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
+context = """Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and fill in the JSON structure below. Obtain each property one-by-one so your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
 {
 "sex": either "male"/"female", 
 "age": number in range 20-70  (if not in range, tell patient that our calculator is not made for their age), 
@@ -74,7 +74,7 @@ Output:
 }
 ]
 ///
-ASK ME, THE USER, QUESTIONS ONE BY ONE!"
+ASK ME, THE USER, QUESTIONS ONE BY ONE!"""
 
 generate_response(context)
 
