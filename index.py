@@ -37,7 +37,6 @@ if 'past' not in st.session_state:
     st.session_state['past'] = ['Hi!']
 
 input_container = st.container()
-colored_header(label='', description='', color_name='blue-30')
 response_container = st.container()
 
 context = """Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
