@@ -91,15 +91,3 @@ with response_container:
         for i in range(len(st.session_state['generated'])):
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i))
-
-"""
-Here is some information on the ASCVD Risk Calculator:
-
-ASCVD: atherosclerotic cardiovascular disease, defined as coronary death or nonfatal myocardial infarction, or fatal or nonfatal stroke
-
-Lifetime ASCVD Risk:
-
-Estimates of lifetime risk for ASCVD are provided for adults 20 through 59 years of age and are shown as the lifetime risk for ASCVD for a 50-year-old without 
-ASCVD who has the risk factor values entered at the initial visit. Because the primary use of these lifetime risk estimates is to facilitate the very important discussion 
-regarding risk reduction through lifestyle change, the imprecision introduced is small enough to justify proceeding with lifestyle change counseling informed by these results.
-"""
