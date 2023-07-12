@@ -34,18 +34,7 @@ If they don\'t know my information, use the average measure for their age. Other
 the JSON format is required. We cannot proceed with the calculation without all the required data.
 ///
 After the conversation, return the data in the JSON format below.
-Example:
-Output: 
-{
-"gender": "female",
-"age": 23,
-"total_cholesterol": 175,
-"hdl_cholesterol": 55,
-"systolic_blood_pressure": 130,
-"smoker": 0,
-"blood_pressure_med_treatment": 1
-}
-///"""} ]
+"""} ]
 
 openai.api_key = st.secrets["openai"]
 
