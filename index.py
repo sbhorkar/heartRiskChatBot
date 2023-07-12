@@ -69,12 +69,10 @@ if 'generated' not in st.session_state:
     st.session_state['generated'] = []
 
 if 'past' not in st.session_state:
-    st.session_state['past'] = ['Hi!']
+    st.session_state['past'] = []
 
 input_container = st.container()
 response_container = st.container()
-
-response = get_response_from_messages(context)
 
 # We will get the user's input by calling the get_text function
 def get_text():
