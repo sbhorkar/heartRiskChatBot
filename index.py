@@ -38,7 +38,10 @@ if 'generated' not in st.session_state:
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
-context = "Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and fill in the JSON structure below. Obtain each property one-by-one so your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
+context = "Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
+fill in the JSON structure below. 
+Obtain each property one-by-one so
+your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
 {
 "sex": either "male"/"female", 
 "age": number in range 20-70  (if not in range, tell patient that our calculator is not made for their age), 
@@ -49,7 +52,8 @@ context = "Assume the role of a medical assistant. Please obtain the following i
 "blood_pressure_med_treatment": 0/1
 }
 ///
-If patient don't know following information, use the following number, adjust accordingly if they say that it is low or high. Also, provide information about clinics near them where they can obtain the information:
+If patient don't know following information, use the following number, adjust accordingly if they 
+say that it is low or high. Also, provide information about clinics near them where they can obtain the information:
 "total_cholesterol":  200, 
 "hdl_cholesterol": 55 ,  
 "systolic_blood_pressure": 130
