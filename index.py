@@ -14,7 +14,7 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your patient, the user, and 
+context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from the user, and 
 fill in the JSON structure below. 
 Obtain each property from the user one-by-one so
 they don/'t feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about gender, 
@@ -33,7 +33,7 @@ move on to ask about age, and then cholesterol, and so on.
 If they don\'t know my information, use the average measure for their age. Otherwise, all other information in 
 the JSON format is required. We cannot proceed with the calculation without all the required data.
 ///
-After the conversation, return the data in the JSON format below.
+After the conversation, return the data in the JSON format below. Make sure to ask THE USER questions, one-by-one!
 """} ]
 
 openai.api_key = st.secrets["openai"]
