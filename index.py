@@ -71,10 +71,8 @@ def collect_messages(prompt):
     context.append({'role':'assistant', 'content':f"{response}"})
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
+    st.text_input("You: ", "", key="input2")
     
-#Creating the chatbot interface
-st.title("chatBot : Streamlit + openAI")
-
 # Storing the chat
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
@@ -104,7 +102,7 @@ with response_container:
         
     if st.session_state['generated']:
         for i in range(len(st.session_state['generated'])):
-            message(st.session_state['past'][i-1], is_user=True, key=str(i) + '_user')
+            message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i))
 
 """
