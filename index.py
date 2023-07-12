@@ -39,8 +39,6 @@ if 'past' not in st.session_state:
 input_container = st.container()
 response_container = st.container()
 
-response = generate_response(context)
-
 context = """Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
 fill in the JSON structure below. 
 Obtain each property one-by-one so
@@ -77,6 +75,8 @@ Output:
 ]
 ///
 ASK ME, THE USER, QUESTIONS ONE BY ONE!"""
+
+response = generate_response(context)
 
 # We will get the user's input by calling the get_text function
 def get_text():
