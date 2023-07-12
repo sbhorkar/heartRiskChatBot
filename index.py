@@ -53,15 +53,6 @@ ASK ME, THE USER, QUESTIONS ONE BY ONE!"""} ]
 
 openai.api_key = st.secrets["openai"]
 
-def generate_response(prompt):
-    messages = [{"role": "user", "content": prompt}]
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        temperature=0, # this is the degree of randomness of the model's output
-    )
-    return response.choices[0].message["content"]
-
 def get_response_from_messages(messages):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -74,19 +65,19 @@ def collect_messages(prompt):
     context.append({'role':'user', 'content':f"{prompt}"})
     response = get_completion_from_messages(context) 
     context.append({'role':'assistant', 'content':f"{response}"})
-    return context
-
+    st.session_state.past.append(prompt)
+    st.session_state.generated.append(response)
+    return pn.Column(*panels)
     
 #Creating the chatbot interface
 st.title("chatBot : Streamlit + openAI")
 
 # Storing the chat
 if 'generated' not in st.session_state:
-    response = generate_response(context)
-    st.session_state['generated'] = [response]
+    st.session_state['generated'] = ['Hi!']
 
 if 'past' not in st.session_state:
-    st.session_state['past'] = ['Hi!']
+    st.session_state['past'] = []
 
 input_container = st.container()
 response_container = st.container()
@@ -102,9 +93,7 @@ with input_container:
 
 with response_container:
     if user_input:
-        response = collect_messages(user_input)
-        st.session_state.past.append(user_input)
-        st.session_state.generated.append(response)
+        collect_messages(user_input)
         
     if st.session_state['generated']:
         for i in range(len(st.session_state['generated'])):
