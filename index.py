@@ -14,7 +14,7 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
+context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
 fill in the JSON structure below. 
 Obtain each property one-by-one so
 your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
@@ -87,6 +87,7 @@ response_container = st.container()
 
 response = get_response_from_messages(context)
 st.session_state.generated.append(response)
+context.append({'role':'assistant', 'content':f"{response}"})
 
 # We will get the user's input by calling the get_text function
 def get_text():
