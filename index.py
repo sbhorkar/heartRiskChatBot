@@ -61,13 +61,11 @@ def collect_messages(prompt):
 input_container = st.container()
 response_container = st.container()
 
-response = get_response_from_messages(context)
-context.append({'role':'assistant', 'content':f"{response}"})
-logging.critical(context)
-
 # Storing the chat
 if 'generated' not in st.session_state:
+    response = get_response_from_messages(context)
     st.session_state['generated'] = [response]
+    context.append({'role':'assistant', 'content':f"{response}"})
 
 if 'past' not in st.session_state:
     st.session_state['past'] = ["Hi!"]
