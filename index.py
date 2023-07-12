@@ -76,19 +76,9 @@ Output:
 ASK ME, THE USER, QUESTIONS ONE BY ONE!"""
 
 # We will get the user's input by calling the get_text function
-def get_first_text():
+def get_text():
     input_text = st.text_input("You: ",context, key="input")
     return input_text
-
-def get_text():
-    input_text = st.text_input("You: ","", key="input")
-    return input_text
-
-user_input = get_first_text()
-
-output = generate_response(user_input)
-# store the output 
-st.session_state.generated.append(output)
 
 user_input = get_text()
 
