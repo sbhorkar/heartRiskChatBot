@@ -31,7 +31,7 @@ move on to ask about age, and then cholesterol, and so on.
 "taking_blood_pressure_med_treatment": ____,
 }
 ///
-If they don\'t know my information, use the average measure for their age. Otherwise, all other information in 
+If they don\'t know their information, use the average measure for their age. Otherwise, all other information in 
 the JSON format is required. We cannot proceed with the calculation without all the required data.
 ///
 After the conversation, return the data in the JSON format below. Make sure to ask THE USER questions, one-by-one!
@@ -50,9 +50,9 @@ def get_response_from_messages(messages):
     return response.choices[0].message["content"]
 
 def collect_messages(prompt):
-    context.append({'role':'user', 'content':f"{prompt}"})
+    st.session_state.context.append({'role':'user', 'content':f"{prompt}"})
     response = get_response_from_messages(context) 
-    context.append({'role':'assistant', 'content':f"{response}"})
+    st.session_state.context.append({'role':'assistant', 'content':f"{response}"})
     logging.warning(context)
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
@@ -62,10 +62,14 @@ input_container = st.container()
 response_container = st.container()
 
 # Storing the chat
+if 'context' not in st.session_state:
+    st.session_state['context'] = [context]
+
+
 if 'generated' not in st.session_state:
-    response = get_response_from_messages(context)
+    response = get_response_from_messages(st.session_state.context)
     st.session_state['generated'] = [response]
-    context.append({'role':'assistant', 'content':f"{response}"})
+    st.session_state.context.append({'role':'assistant', 'content':f"{response}"})
 
 if 'past' not in st.session_state:
     st.session_state['past'] = ["Hi!"]
@@ -75,7 +79,7 @@ def get_text():
     input_text = st.text_input("You: ", "", key="input")
     return input_text
 
-## Applying the user input box
+# Applying the user input box
 with input_container:
     user_input = get_text()
 
