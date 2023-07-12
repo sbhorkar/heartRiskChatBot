@@ -52,8 +52,8 @@ def get_response_from_messages(messages):
 def collect_messages(prompt):
     context.append({'role':'user', 'content':f"{prompt}"})
     response = get_response_from_messages(context) 
-    logging.warning(context)
     context.append({'role':'assistant', 'content':f"{response}"})
+    logging.warning(context)
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
     
@@ -63,6 +63,7 @@ response_container = st.container()
 
 response = get_response_from_messages(context)
 context.append({'role':'assistant', 'content':f"{response}"})
+logging.warning("first message " + context)
 
 # Storing the chat
 if 'generated' not in st.session_state:
