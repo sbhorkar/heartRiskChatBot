@@ -87,8 +87,8 @@ def get_text():
 user_input = get_first_text()
 
 output = generate_response(user_input)
-    # store the output 
-    st.session_state.generated.append(output)
+# store the output 
+st.session_state.generated.append(output)
 
 user_input = get_text()
 
