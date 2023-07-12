@@ -67,7 +67,6 @@ def collect_messages(prompt):
     context.append({'role':'assistant', 'content':f"{response}"})
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
-    return pn.Column(*panels)
     
 #Creating the chatbot interface
 st.title("chatBot : Streamlit + openAI")
@@ -81,6 +80,9 @@ if 'past' not in st.session_state:
 
 input_container = st.container()
 response_container = st.container()
+
+response = get_completion_from_messages(context) 
+st.session_state.generated.append(response)
 
 # We will get the user's input by calling the get_text function
 def get_text():
