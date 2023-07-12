@@ -18,25 +18,30 @@ context = [ {'role':'system', 'content':"""Assume the role of a medical assistan
 fill in the JSON structure below. 
 Obtain each property one-by-one so
 your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
+
 {
-"sex": either "male"/"female", 
-"age": number in range 20-70  (if not in range, tell patient that our calculator is not made for their age), 
-"total_cholesterol":  number in range 130-320, 
-"hdl_cholesterol": number in range 20-100 ,  
-"systolic_blood_pressure": number in range 90-200 , 
-"smoker": 0/1, 
-"blood_pressure_med_treatment": 0/1
+"sex": ____, 
+"age": _______, 
+"total_cholesterol": _____,
+"hdl_cholesterol": _______,
+"systolic_blood_pressure": _______,
+"current_smoker": ____,
+"taking_blood_pressure_med_treatment": ____,
 }
+
+Sex must be 0 or 1. O if male and 1 if female.
+Age must be a number in range 20-70  (if not in range, tell patient that our calculator is not made for their age)
+Total cholesterol must be a number in range 130-320
+HDL cholestrol must be a number in range 20-100
+Systolic blood pressure must be a number in range 90-200
+Smoker must be 0 or 1. O if no and 1 if yes.
+Blood pressure med treatment must be a 0 or 1. 0 if no and 1 if yes.
 ///
-If patient don't know following information, use the following number, adjust accordingly if they 
-say that it is low or high. Also, provide information about clinics near them where they can obtain the information:
-"total_cholesterol":  200, 
-"hdl_cholesterol": 55 ,  
-"systolic_blood_pressure": 130
-Otherwise, all other information in the JSON format is required. We cannot proceed with the calculation without all the required data.
+If patient doesn't know their information, use the average measure for their age. Otherwise, all other information in 
+the JSON format is required. We cannot proceed with the calculation without all the required data.
 ///
 After the conversation, put the data into JSON format and print it out to me.
-[Example:
+Example:
 Output: 
 {
 "sex": "female",
@@ -47,7 +52,6 @@ Output:
 "smoker": 0,
 "blood_pressure_med_treatment": 1
 }
-]
 ///
 ASK ME, THE USER, QUESTIONS ONE BY ONE!"""} ]
 
@@ -99,7 +103,7 @@ with response_container:
         
     if st.session_state['generated']:
         for i in range(len(st.session_state['generated'])):
-            message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+            message(st.session_state['past'][i-1], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i))
 
 """
