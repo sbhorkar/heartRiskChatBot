@@ -17,11 +17,11 @@ Please contact us if you have any questions!
 context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from me, and 
 fill in the JSON structure below. 
 Obtain each property one-by-one so
-I doesn't feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about sex, 
+I doesn't feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about gender, 
 move on to ask about age, and then cholesterol, and so on.
 
 {
-"sex": ____, 
+"gender": ____, 
 "age": _______, 
 "total_cholesterol": _____,
 "hdl_cholesterol": _______,
@@ -37,7 +37,7 @@ After the conversation, put the data into JSON format and print it out to me.
 Example:
 Output: 
 {
-"sex": "female",
+"gender": "female",
 "age": 23,
 "total_cholesterol": 175,
 "hdl_cholesterol": 55,
