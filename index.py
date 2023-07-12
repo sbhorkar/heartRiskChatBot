@@ -17,7 +17,8 @@ Please contact us if you have any questions!
 context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
 fill in the JSON structure below. 
 Obtain each property one-by-one so
-your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
+your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about sex, 
+move on to ask about age, and then cholesterol, and so on.
 
 {
 "sex": ____, 
@@ -71,7 +72,6 @@ def collect_messages(prompt):
     context.append({'role':'assistant', 'content':f"{response}"})
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
-    st.text_input("You: ", "", key="input2")
     
 # Storing the chat
 if 'generated' not in st.session_state:
