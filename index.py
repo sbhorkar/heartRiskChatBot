@@ -77,6 +77,7 @@ Output:
 ASK ME, THE USER, QUESTIONS ONE BY ONE!"""
 
 response = generate_response(context)
+st.session_state.generated.append(response)
 
 # We will get the user's input by calling the get_text function
 def get_text():
