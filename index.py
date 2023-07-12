@@ -23,7 +23,7 @@ def generate_response(prompt):
         n = 1,
         temperature = 0,
     )
-    message = completions.choices[0].text
+    message = completions.choices[0].message["content"]
     return message 
     
 #Creating the chatbot interface
