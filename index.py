@@ -1,5 +1,6 @@
 import streamlit as st
 import openai
+import logging # for testing
 
 # pip install streamlit-chat  
 from streamlit_chat import message
@@ -51,6 +52,7 @@ def get_response_from_messages(messages):
 def collect_messages(prompt):
     context.append({'role':'user', 'content':f"{prompt}"})
     response = get_response_from_messages(context) 
+    logging.warning(context)
     context.append({'role':'assistant', 'content':f"{response}"})
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
