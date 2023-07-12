@@ -63,7 +63,7 @@ def get_response_from_messages(messages):
 
 def collect_messages(prompt):
     context.append({'role':'user', 'content':f"{prompt}"})
-    response = get_completion_from_messages(context) 
+    response = get_response_from_messages(context) 
     context.append({'role':'assistant', 'content':f"{response}"})
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
@@ -81,7 +81,7 @@ if 'past' not in st.session_state:
 input_container = st.container()
 response_container = st.container()
 
-response = get_completion_from_messages(context) 
+response = get_response_from_messages(context) 
 st.session_state.generated.append(response)
 
 # We will get the user's input by calling the get_text function
