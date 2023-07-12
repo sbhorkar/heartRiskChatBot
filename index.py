@@ -19,8 +19,9 @@ openai.api_key = st.secrets["openai"]
 def generate_response(prompt):
     completions = openai.ChatCompletion.create(
         model = "gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}]
-        temperature=0,
+        messages=[{"role": "user", "content": prompt}],
+        n = 1,
+        temperature = 0,
     )
     message = completions.choices[0].text
     return message 
