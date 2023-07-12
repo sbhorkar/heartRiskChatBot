@@ -63,7 +63,7 @@ response_container = st.container()
 
 response = get_response_from_messages(context)
 context.append({'role':'assistant', 'content':f"{response}"})
-logging.warning("first message " + context)
+logging.critical(context)
 
 # Storing the chat
 if 'generated' not in st.session_state:
