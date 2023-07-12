@@ -16,15 +16,15 @@ Please contact us if you have any questions!
 
 openai.api_key = st.secrets["openai"]
 
-def generate_response(prompt):
-    completions = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}],
-        n = 1,
-        temperature = 0,
+def generate_response(prompt, model="gpt-3.5-turbo"):
+    messages = [{"role": "user", "content": prompt}]
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        temperature=0, # this is the degree of randomness of the model's output
     )
-    message = completions.choices[0].message["content"]
-    return message 
+    return response.choices[0].message["content"]
+
     
 #Creating the chatbot interface
 st.title("chatBot : Streamlit + openAI")
