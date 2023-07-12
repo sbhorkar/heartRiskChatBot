@@ -75,8 +75,6 @@ input_container = st.container()
 response_container = st.container()
 
 response = get_response_from_messages(context)
-st.session_state.generated.append(response)
-context.append({'role':'assistant', 'content':f"{response}"})
 
 # We will get the user's input by calling the get_text function
 def get_text():
