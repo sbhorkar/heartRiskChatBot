@@ -16,10 +16,10 @@ Please contact us if you have any questions!
 
 openai.api_key = st.secrets["openai"]
 
-def generate_response(prompt, model="gpt-3.5-turbo"):
+def generate_response(prompt):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
-        model=model,
+        model="gpt-3.5-turbo",
         messages=messages,
         temperature=0, # this is the degree of randomness of the model's output
     )
