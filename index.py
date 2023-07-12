@@ -14,10 +14,10 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from me, and 
+context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your patient, and 
 fill in the JSON structure below. 
 Obtain each property one-by-one so
-I doesn't feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about gender, 
+they don/'t feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about gender, 
 move on to ask about age, and then cholesterol, and so on.
 
 {
@@ -30,10 +30,10 @@ move on to ask about age, and then cholesterol, and so on.
 "taking_blood_pressure_med_treatment": ____,
 }
 ///
-If I don\'t know my information, use the average measure for their age. Otherwise, all other information in 
+If they don\'t know my information, use the average measure for their age. Otherwise, all other information in 
 the JSON format is required. We cannot proceed with the calculation without all the required data.
 ///
-After the conversation, put the data into JSON format and print it out to me.
+After the conversation, return the data in the JSON format below.
 Example:
 Output: 
 {
