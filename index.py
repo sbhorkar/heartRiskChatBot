@@ -38,6 +38,8 @@ After the conversation, return the data in the JSON format below. Make sure to a
 
 openai.api_key = st.secrets["openai"]
 
+print("hello!")
+
 def get_response_from_messages(messages):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
