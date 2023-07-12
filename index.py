@@ -31,10 +31,14 @@ st.title("chatBot : Streamlit + openAI")
 
 # Storing the chat
 if 'generated' not in st.session_state:
-    st.session_state['generated'] = []
+    st.session_state['generated'] = ["I'm a chatbot to help you find heart disease risk, are you ready for my questions?"]
 
 if 'past' not in st.session_state:
-    st.session_state['past'] = []
+    st.session_state['past'] = ['Hi!']
+
+input_container = st.container()
+colored_header(label='', description='', color_name='blue-30')
+response_container = st.container()
 
 context = """Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
 fill in the JSON structure below. 
@@ -75,22 +79,23 @@ ASK ME, THE USER, QUESTIONS ONE BY ONE!"""
 
 # We will get the user's input by calling the get_text function
 def get_text():
-    input_text = st.text_input("You: ",context, key="input")
+    input_text = st.text_input("You: ", "", key="input")
     return input_text
 
-user_input = get_text()
+## Applying the user input box
+with input_container:
+    user_input = get_text()
 
-if user_input:
-    output = generate_response(user_input)
-    # store the output 
-    st.session_state.generated.append(output)
-    st.session_state.past.append(user_input)
-
-if st.session_state['generated']:
-    
-    for i in range(len(st.session_state['generated'])-1, -1, -1):
-        message(st.session_state["generated"][i], key=str(i))
-        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+with response_container:
+    if user_input:
+        response = generate_response(user_input)
+        st.session_state.past.append(user_input)
+        st.session_state.generated.append(response)
+        
+    if st.session_state['generated']:
+        for i in range(len(st.session_state['generated'])):
+            message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+            message(st.session_state['generated'][i], key=str(i))
 
 """
 Here is some information on the ASCVD Risk Calculator:
