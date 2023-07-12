@@ -14,10 +14,10 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
+context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from me, and 
 fill in the JSON structure below. 
 Obtain each property one-by-one so
-your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about sex, 
+I doesn't feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about sex, 
 move on to ask about age, and then cholesterol, and so on.
 
 {
@@ -29,16 +29,8 @@ move on to ask about age, and then cholesterol, and so on.
 "current_smoker": ____,
 "taking_blood_pressure_med_treatment": ____,
 }
-
-Sex must be 0 or 1. O if male and 1 if female.
-Age must be a number in range 20-70  (if not in range, tell patient that our calculator is not made for their age)
-Total cholesterol must be a number in range 130-320
-HDL cholestrol must be a number in range 20-100
-Systolic blood pressure must be a number in range 90-200
-Smoker must be 0 or 1. O if no and 1 if yes.
-Blood pressure med treatment must be a 0 or 1. 0 if no and 1 if yes.
 ///
-If patient doesn't know their information, use the average measure for their age. Otherwise, all other information in 
+If I don\'t know my information, use the average measure for their age. Otherwise, all other information in 
 the JSON format is required. We cannot proceed with the calculation without all the required data.
 ///
 After the conversation, put the data into JSON format and print it out to me.
@@ -53,8 +45,7 @@ Output:
 "smoker": 0,
 "blood_pressure_med_treatment": 1
 }
-///
-ASK ME, THE USER, QUESTIONS ONE BY ONE!"""} ]
+///"""} ]
 
 openai.api_key = st.secrets["openai"]
 
