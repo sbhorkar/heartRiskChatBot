@@ -14,7 +14,7 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-context = """Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
+context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
 fill in the JSON structure below. 
 Obtain each property one-by-one so
 your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
@@ -49,7 +49,7 @@ Output:
 }
 ]
 ///
-ASK ME, THE USER, QUESTIONS ONE BY ONE!"""
+ASK ME, THE USER, QUESTIONS ONE BY ONE!"""} ]
 
 openai.api_key = st.secrets["openai"]
 
@@ -69,6 +69,12 @@ def get_response_from_messages(messages):
         temperature=0,
     )
     return response.choices[0].message["content"]
+
+def collect_messages(prompt):
+    context.append({'role':'user', 'content':f"{prompt}"})
+    response = get_completion_from_messages(context) 
+    context.append({'role':'assistant', 'content':f"{response}"})
+    return context
 
     
 #Creating the chatbot interface
@@ -96,7 +102,7 @@ with input_container:
 
 with response_container:
     if user_input:
-        response = get_response_from_messages(user_input)
+        response = collect_messages(user_input)
         st.session_state.past.append(user_input)
         st.session_state.generated.append(response)
         
