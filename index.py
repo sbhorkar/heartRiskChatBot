@@ -38,7 +38,7 @@ if 'generated' not in st.session_state:
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
-context = "Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
+context = """Assume the role of a medical assistant. Please obtain the following information from your user, who is your patient, and 
 fill in the JSON structure below. 
 Obtain each property one-by-one so
 your patient doesn't feel overwhelmed, using questions that reflect a kind medical assistant.
@@ -73,7 +73,7 @@ Output:
 }
 ]
 ///
-ASK ME, THE USER, QUESTIONS ONE BY ONE!"
+ASK ME, THE USER, QUESTIONS ONE BY ONE!"""
 
 # We will get the user's input by calling the get_text function
 def get_first_text():
