@@ -14,9 +14,9 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions!
 """
 
-context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your patient, and 
+context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from your patient, the user, and 
 fill in the JSON structure below. 
-Obtain each property one-by-one so
+Obtain each property from the user one-by-one so
 they don/'t feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about gender, 
 move on to ask about age, and then cholesterol, and so on.
 
