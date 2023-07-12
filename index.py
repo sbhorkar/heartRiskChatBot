@@ -16,7 +16,7 @@ Please contact us if you have any questions!
 
 openai.api_key = st.secrets["openai"]
 
-ef generate_response(prompt):
+def generate_response(prompt):
     completions = openai.Completion.create(
         engine = "text-davinci-003",
         prompt = prompt,
