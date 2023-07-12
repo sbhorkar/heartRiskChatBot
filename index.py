@@ -62,6 +62,14 @@ def generate_response(prompt):
     )
     return response.choices[0].message["content"]
 
+def get_response_from_messages(messages):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        temperature=0,
+    )
+    return response.choices[0].message["content"]
+
     
 #Creating the chatbot interface
 st.title("chatBot : Streamlit + openAI")
@@ -88,7 +96,7 @@ with input_container:
 
 with response_container:
     if user_input:
-        response = generate_response(user_input)
+        response = get_response_from_messages(user_input)
         st.session_state.past.append(user_input)
         st.session_state.generated.append(response)
         
