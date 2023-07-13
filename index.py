@@ -41,7 +41,7 @@ openai.api_key = st.secrets["openai"]
 
 def get_response_from_messages(messages):
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=messages,
         temperature=0.5,
     )
