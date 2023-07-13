@@ -77,6 +77,8 @@ def get_text():
     input_text = st.text_input("You: ", "", key="input")
     return input_text
 
+user_input = None
+
 # Applying the user input box
 
 with response_container:
