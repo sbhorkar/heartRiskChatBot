@@ -1,6 +1,5 @@
 import streamlit as st 
 import openai
-import logging # for testing
 
 # pip install streamlit-chat  
 from streamlit_chat import message
@@ -51,13 +50,11 @@ def collect_messages(prompt):
     st.session_state.context.append({'role':'user', 'content':f"{prompt}"})
     response = get_response_from_messages(st.session_state.context) 
     st.session_state.context.append({'role':'assistant', 'content':f"{response}"})
-    logging.warning(st.session_state.context)
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
-    
 
-input_container = st.container()
 response_container = st.container()
+input_container = st.container()
 
 # Storing the chat
 if 'context' not in st.session_state:
@@ -77,13 +74,9 @@ def get_text():
     input_text = st.text_input("You: ", "", key="input")
     return input_text
 
-user_input = None
-
 # Applying the user input box
 
 with response_container:
-    if user_input:
-        collect_messages(user_input)
         
     if st.session_state['generated']:
         for i in range(len(st.session_state['generated'])):
@@ -92,3 +85,5 @@ with response_container:
 
 with input_container:
     user_input = get_text()
+    if user_input:
+        collect_messages(user_input)
