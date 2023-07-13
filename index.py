@@ -60,7 +60,6 @@ input_container = st.container()
 if 'context' not in st.session_state:
      st.session_state['context'] = context[:]
 
-
 if 'generated' not in st.session_state:
     response = get_response_from_messages(st.session_state['context'])
     st.session_state['generated'] = [response]
@@ -75,15 +74,13 @@ def get_text():
     return input_text
 
 # Applying the user input box
+with input_container:
+    user_input = get_text()
 
 with response_container:
-        
+    if user_input:
+        collect_messages(user_input)
     if st.session_state['generated']:
         for i in range(len(st.session_state['generated'])):
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i))
-
-with input_container:
-    user_input = get_text()
-    if user_input:
-        collect_messages(user_input)
