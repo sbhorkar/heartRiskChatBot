@@ -39,11 +39,9 @@ After the conversation, return the data in the JSON format below. Make sure to a
 
 openai.api_key = st.secrets["openai"]
 
-print("hello!")
-
 def get_response_from_messages(messages):
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=messages,
         temperature=0.5,
     )
@@ -80,8 +78,6 @@ def get_text():
     return input_text
 
 # Applying the user input box
-with input_container:
-    user_input = get_text()
 
 with response_container:
     if user_input:
@@ -91,3 +87,6 @@ with response_container:
         for i in range(len(st.session_state['generated'])):
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i))
+
+with input_container:
+    user_input = get_text()
