@@ -58,6 +58,7 @@ def get_response_from_messages(messages):
         model="gpt-3.5-turbo",
         messages=messages,
         temperature=0.5,
+        presence_penalty=0.6,
     )
     return response.choices[0].message["content"]
 
