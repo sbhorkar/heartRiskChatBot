@@ -9,6 +9,8 @@ from streamlit_chat import message
 
 This chatbot is here to help you understand your risk of heart disease. This is a serious topic; please do not use this calculator for fun.
 
+This calculator uses the Framingham Heart Study (https://www.framinghamheartstudy.org/) as a base to calculate your 10 years heart disease risk through a calculator by videntity on Github (https://github.com/videntity/python-framingham10yr).
+
 Answer the questions one by one, and if you have any questions for the chatbot, go ahead and ask them. Once you get your results back, we will provide you with some next steps and resources to follow.
 
 Please contact us if you have any questions!
