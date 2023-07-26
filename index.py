@@ -4,6 +4,9 @@ import openai
 from streamlit_chat import message
 from framingham10yr.framingham10yr import framingham_10year_risk
 
+result = framingham_10year_risk(sex="male", age=26, total_cholesterol=152, hdl_cholesterol=70,  systolic_blood_pressure=130, smoker=True, blood_pressure_med_treatment=False)
+"""result["status"], result["message"]"""
+
 """
 # Welcome to the Heart Disease Risk Calculator!
 
