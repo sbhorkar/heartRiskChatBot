@@ -21,16 +21,17 @@ Please contact us if you have any questions!
 
 context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from the user, and 
 fill in the  structure below. 
-Obtain each property from the user one-by-one so
-they don/'t feel overwhelmed, using questions that reflect a kind medical assistant. For example, after asking about gender, 
-move on to ask about age, and then cholesterol, and so on.
+Obtain each property from the user ONE-BY-ONE, not all together, so
+they don/'t feel overwhelmed. Use questions that reflect a kind medical assistant. For example, after asking about gender, 
+move on to ask about age, and then cholesterol, and so on. The structure you must print out at the end is below. Fill in all of the ___ and 
+answer True or False for the last two properties depending on the user's input.
 ///
 framingham_10year_risk(sex="____", age=__, total_cholesterol=___, hdl_cholesterol=__,  systolic_blood_pressure=___, smoker=True/False, blood_pressure_med_treatment=True/False)
 ///
 If they don\'t know their information, use the average measure for their age. Otherwise, all other information in 
-the JSON format is required. We cannot proceed with the calculation without all the required data.
+the format is required. We cannot proceed with the calculation without all the required data.
 
-After the conversation, return the data in a JSON format only. No other text should be in that message. Make sure to ask 
+After the conversation, return the data in THAT format ONLY. No other text should be in that message. Make sure to ask 
 THE USER questions, one-by-one!
 """} ]
 
