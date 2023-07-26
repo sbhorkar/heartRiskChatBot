@@ -4,7 +4,7 @@ import openai
 # pip install streamlit-chat  
 from streamlit_chat import message
 
-from framingham10yr.framingham10yr import framingham_10year_risk
+"""from framingham10yr.framingham10yr import framingham_10year_risk"""
 
 """
 # Welcome to the Heart Disease Risk Calculator!
