@@ -1,4 +1,4 @@
 streamlit
 openai
 streamlit_chat
-git+https://github.com/videntity/python-framingham10yr
+framingham10yr
