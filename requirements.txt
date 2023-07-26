@@ -2,3 +2,5 @@ streamlit
 openai
 streamlit_chat
 python-framingham10yr
+framingham10yr.framingham10yr
+framingham_10year_risk
