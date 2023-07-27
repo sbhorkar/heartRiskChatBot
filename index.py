@@ -89,8 +89,7 @@ def collect_messages(prompt):
     response = get_response_from_messages(st.session_state.context) 
     st.session_state.context.append({'role':'assistant', 'content':f"{response}"})
     st.session_state.past.append(prompt)
-    if "{" not in response:
-       st.session_state.generated.append(response)
+    st.session_state.generated.append(response)
 
 response_container = st.container()
 input_container = st.container()
