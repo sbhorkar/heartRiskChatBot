@@ -114,8 +114,14 @@ def check_for_risk():
       result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
       percent = result['percent_risk']
       st.write(percent)
-      st.session_state.context.append({'role':'user', 'content':"""My percent risk is """ + percent + """. Can you please restate my 
-      percent calculated risk and tell me what the next steps are? Should I go see a health professional?? What should I do?"""})
+      st.session_state.context.append({'role':'user', 'content':"""My percent risk is """ + percent + """. Please restate my percent risk
+      in the format below:
+
+      Your percent risk of heart disease is _____. 
+
+      If the percent in very high, console the user after giving them the news and assure them everything will be okay.
+      
+      """})
       st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
 
 response_container = st.container()
