@@ -1,7 +1,6 @@
 import streamlit as st 
 import openai
 import json
-import logging
 
 from streamlit_chat import message
 from framingham10yr.framingham10yr import framingham_10year_risk
@@ -26,19 +25,19 @@ move on to ask about age, and then cholesterol, and so on. The structure you mus
 fill in True or False for the last two properties.
 ///
 {
-   sex="____",
-   age=___,
-   total_cholestrol=___,
-   hdl_cholestrol=___,
-   systolic_blood_pressure=____,
-   smoker=____,
-   blood_pressure_treatment=_____
+   "sex":"____",
+   "age":___,
+   "total_cholestrol":___,
+   "hdl_cholestrol":___,
+   "systolic_blood_pressure":____,
+   "smoker":"___",
+   "blood_pressure_treatment":"____"
 }
 ///
 If they don\'t know their information, use the average measure for their age and put that in the structure. Otherwise, all other information in 
 the format is required. We cannot proceed with the calculation without all the required data. Smoker and blood pressure treatment both must be
-answered with "True" or "False".
-Sex must be answered with either "male" or "female". If the user is non-binary, ask them for their assigned gender at birth.
+set in the JSON with "True" or "False".
+Sex must be set in the JSON with either "male" or "female". If the user is non-binary, ask them for their assigned gender at birth.
 
 After the conversation, return the data in THAT format ONLY. No other text should be in that message. Make sure to ask 
 THE USER questions, one-by-one!
@@ -134,5 +133,5 @@ if "{" in st.session_state['generated'][-1]:
    gender = data["sex"]
    age = data["age"]
    
-   logging.warning(gender)
+   st.write(gender)
    
