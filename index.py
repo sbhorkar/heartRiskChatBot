@@ -91,6 +91,33 @@ def collect_messages(prompt):
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
 
+def check_for_risk:
+   if "{" in st.session_state['generated'][-1]:
+   last_message = st.session_state['generated'][-1]
+   st.session_state.generated.pop()
+
+   json_start = last_message.index('{')
+   json_end = last_message.index('}')
+   
+   json_part = last_message[json_start:json_end+1]
+   
+   data = json.loads(json_part)
+   
+   gender = data["sex"]
+   age = data["age"]
+   total_cholesterol = data["total_cholesterol"]
+   hdl_cholesterol = data["hdl_cholesterol"]
+   systolic_bp = data["systolic_blood_pressure"]
+   smoker = data["smoker"]
+   bp_treatment = data["blood_pressure_treatment"]
+
+   result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
+   percent = result['percent_risk']
+   st.write(percent)
+   st.session_state.context.append({'role':'user', 'content':"""My percent risk is """ + percent + """. Can you please restate my 
+   percent calculated risk and tell me what the next steps are? Should I go see a health professional?? What should I do?"""})
+   st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
+
 response_container = st.container()
 input_container = st.container()
 
@@ -122,38 +149,4 @@ with response_container:
         for i in range(len(st.session_state['generated'])):
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i), logo='https://www.freepnglogos.com/uploads/heart-png/emoji-heart-33.png')
-
-if "{" in st.session_state['generated'][-1]:
-   last_message = st.session_state['generated'][-1]
-   st.session_state.generated.pop()
-
-   json_start = last_message.index('{')
-   json_end = last_message.index('}')
-   
-   json_part = last_message[json_start:json_end+1]
-   
-   data = json.loads(json_part)
-   
-   gender = data["sex"]
-   age = data["age"]
-   total_cholesterol = data["total_cholesterol"]
-   hdl_cholesterol = data["hdl_cholesterol"]
-   systolic_bp = data["systolic_blood_pressure"]
-   smoker = data["smoker"]
-   bp_treatment = data["blood_pressure_treatment"]
-
-   result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
-   percent = result['percent_risk']
-   st.write(percent)
-   st.session_state.context.append({'role':'user', 'content':"""My percent risk is {}. Can you please restate my 
-   percent calculated risk and tell me what the next steps are? Should I go see a health professional?? What should I do?"""})
-   st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
-
-with response_container:
-    if user_input:
-        collect_messages(user_input)
-    if st.session_state['generated']:
-        for i in range(len(st.session_state['generated'])):
-            message(st.session_state['past'][i], is_user=True, key=str(i+len(st.session_state['generated'])) + '_user')
-            message(st.session_state['generated'][i], key=str(i+len(st.session_state['generated'])), logo='https://www.freepnglogos.com/uploads/heart-png/emoji-heart-33.png')
-
+            check_for_risk()
