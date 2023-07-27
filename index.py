@@ -126,7 +126,7 @@ if "{" in st.session_state['generated'][-1]:
    json_start = last_message.index('{')
    json_end = last_message.index('}')
    
-   json_part = last_message[json_start:json_end]
+   json_part = last_message[json_start:json_end+1]
    
    data = json.loads(json_part)
    
