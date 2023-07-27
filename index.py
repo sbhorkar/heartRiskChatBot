@@ -1,6 +1,7 @@
 import streamlit as st 
 import openai
 import json
+import logging
 
 from streamlit_chat import message
 from framingham10yr.framingham10yr import framingham_10year_risk
@@ -133,6 +134,5 @@ if "{" in st.session_state['generated'][-1]:
    gender = data["sex"]
    age = data["age"]
    
-   st.write(gender)
-   st.write(age)
+   logging.warning(gender)
    
