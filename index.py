@@ -1,11 +1,9 @@
 import streamlit as st 
 import openai
+import json
 
 from streamlit_chat import message
 from framingham10yr.framingham10yr import framingham_10year_risk
-
-result = framingham_10year_risk(sex="male", age=26, total_cholesterol=152, hdl_cholesterol=70,  systolic_blood_pressure=130, smoker=True, blood_pressure_med_treatment=False)
-st.write(result["percent_risk"])
 
 """
 # Welcome to the Heart Disease Risk Calculator!
@@ -24,7 +22,7 @@ fill in the  structure below.
 Obtain each property from the user ONE-BY-ONE, not all together, so
 they don/'t feel overwhelmed. Use questions that reflect a kind medical assistant. For example, after asking about gender, 
 move on to ask about age, and then cholesterol, and so on. The structure you must print out at the end is below. Fill in all of the ___ and 
-fill in True or False for the last two properties depending on the user's initial input.
+fill in True or False for the last two properties.
 ///
 {
    sex="____",
@@ -122,6 +120,19 @@ with response_container:
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i), logo='https://www.freepnglogos.com/uploads/heart-png/emoji-heart-33.png')
 
-if "framingham_10yr_risk" in st.session_state['generated'][-1]:
-    result = st.session_state['generated'][-1]
-    st.write(result["percent-risk"])
+if "{" in st.session_state['generated'][-1]:
+   last_message = st.session_state['generated'][-1]
+
+   json_start = last_message.index('{')
+   json_end = last_message.index('}')
+   
+   json_part = last_message[json_start:json_end]
+   
+   data = json.loads(json_part)
+   
+   gender = data["sex"]
+   age = data["age"]
+   
+   st.write(gender)
+   st.write(age)
+   
