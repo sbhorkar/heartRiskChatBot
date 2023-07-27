@@ -30,8 +30,8 @@ fill in "True" or "False" for the last two properties.
 {
    "sex":"____",
    "age":___,
-   "total_cholestrol":___,
-   "hdl_cholestrol":___,
+   "total_cholesterol":___,
+   "hdl_cholesterol":___,
    "systolic_blood_pressure":____,
    "smoker":"___",
    "blood_pressure_treatment":"____"
@@ -135,12 +135,12 @@ if "{" in st.session_state['generated'][-1]:
    
    gender = data["sex"]
    age = data["age"]
-   total_cholestrol = data["total_cholestrol"]
-   hdl_cholestrol = data["hdl_cholestrol"]
+   total_cholesterol = data["total_cholesterol"]
+   hdl_cholesterol = data["hdl_cholesterol"]
    systolic_bp = data["systolic_blood_pressure"]
    smoker = data["smoker"]
    bp_treatment = data["blood_pressure_treatment"]
 
-   result = framingham_10year_risk(gender, age, total_cholestrol, hdl_cholestrol, systolic_bp, smoker, bp_treatment)
+   result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
    st.write(result['status'], result['message'])
    
