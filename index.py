@@ -118,17 +118,18 @@ def check_for_risk():
       
          """})
          st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
-      percent = result['percent_risk']
-      st.write(percent)
-      st.session_state.context.append({'role':'system', 'content':"""The user's percent risk is """ + percent + """. Please restate 
-      their risk in the format below:
-
-      Your percent risk of heart disease is _____. 
-
-      If the percent is very high, console the user after giving them the news and assure them everything will be okay.
-      
-      """})
-      st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
+      else:
+         percent = result['percent_risk']
+         st.write(percent)
+         st.session_state.context.append({'role':'system', 'content':"""The user's percent risk is """ + percent + """. Please restate 
+         their risk in the format below:
+   
+         Your percent risk of heart disease is _____. 
+   
+         If the percent is very high, console the user after giving them the news and assure them everything will be okay.
+         
+         """})
+         st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
 
 response_container = st.container()
 input_container = st.container()
