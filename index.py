@@ -14,7 +14,7 @@ This calculator uses the Framingham Heart Study (https://www.framinghamheartstud
 
 Answer the questions one by one, and if you have any questions for the chatbot, go ahead and ask them. Once you get your results back, we will provide you with some next steps and resources to follow.
 
-Please contact us if you have any questions!
+Please contact us if you have any questions! 
 """
 
 context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from the user, and 
