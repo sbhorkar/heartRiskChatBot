@@ -26,10 +26,19 @@ they don/'t feel overwhelmed. Use questions that reflect a kind medical assistan
 move on to ask about age, and then cholesterol, and so on. The structure you must print out at the end is below. Fill in all of the ___ and 
 fill in True or False for the last two properties depending on the user's initial input.
 ///
-framingham_10year_risk(sex="____", age=__, total_cholesterol=___, hdl_cholesterol=__,  systolic_blood_pressure=___, smoker=True/False, blood_pressure_med_treatment=True/False)
+{
+   sex="____",
+   age=___,
+   total_cholestrol=___,
+   hdl_cholestrol=___,
+   systolic_blood_pressure=____,
+   smoker=____,
+   blood_pressure_treatment=_____
+}
 ///
 If they don\'t know their information, use the average measure for their age and put that in the structure. Otherwise, all other information in 
-the format is required. We cannot proceed with the calculation without all the required data.
+the format is required. We cannot proceed with the calculation without all the required data. Smoker and blood pressure treatment must be either "True" or "False".
+Sex must be answered with either "male" or "female". If the user is non-binary, ask them for their assigned gender at birth.
 
 After the conversation, return the data in THAT format ONLY. No other text should be in that message. Make sure to ask 
 THE USER questions, one-by-one!
@@ -111,3 +120,7 @@ with response_container:
         for i in range(len(st.session_state['generated'])):
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i), logo='https://www.freepnglogos.com/uploads/heart-png/emoji-heart-33.png')
+
+if "framingham_10yr_risk" in st.session_state['generated'][-1]:
+    result = st.session_state['generated'][-1]
+    st.write(result["percent-risk"])
