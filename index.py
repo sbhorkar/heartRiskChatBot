@@ -144,7 +144,6 @@ if "{" in st.session_state['generated'][-1]:
    result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
    percent = result['percent_risk']
    st.write(percent)
-   st.session_state.context.append({'role':'user', 'content':"My percent risk is", percent, """. Can you please restate my 
-   percent calculated risk and tell me
-   what the next steps are? Should I go see a health professional?? What should I do?"""})
+   st.session_state.context.append({'role':'user', 'content':"""My percent risk is {}. Can you please restate my 
+   percent calculated risk and tell me what the next steps are? Should I go see a health professional?? What should I do?"""})
    st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
