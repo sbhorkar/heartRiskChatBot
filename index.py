@@ -132,6 +132,12 @@ if "{" in st.session_state['generated'][-1]:
    
    gender = data["sex"]
    age = data["age"]
-   
-   st.write(gender)
+   total_cholestrol = data["total_cholestrol"]
+   hdl_cholestrol = data["hdl_cholestrol"]
+   systolic_bp = data["systolic_blood_pressure"]
+   smoker = data["smoker"]
+   bp_treatment = data["blood_pressure_treatment"]
+
+   result = framingham_10year_risk(gender, age, total_cholestrol, hdl_cholestrol, systolic_bp, smoker, bp_treatment)
+   st.write(result["percent_risk"])
    
