@@ -111,8 +111,8 @@ def check_for_risk():
       result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
       st.write(result)
       if "OK" not in result['message']:
-         error = result['errors']
-         st.session_state.context.append({'role':'system', 'content':"""We could not proceeed due to these errors: """ + error + """. 
+         errors = ' '.join(result['errors'])
+         st.session_state.context.append({'role':'system', 'content':"""We could not proceeed due to these errors: """ + errors + """. 
 
          Please correct the errors with the user and print out the final JSON again.
       
