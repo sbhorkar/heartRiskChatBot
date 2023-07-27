@@ -37,7 +37,8 @@ fill in True or False for the last two properties depending on the user's initia
 }
 ///
 If they don\'t know their information, use the average measure for their age and put that in the structure. Otherwise, all other information in 
-the format is required. We cannot proceed with the calculation without all the required data. Smoker and blood pressure treatment must be either "True" or "False".
+the format is required. We cannot proceed with the calculation without all the required data. Smoker and blood pressure treatment both must be
+answered with "True" or "False".
 Sex must be answered with either "male" or "female". If the user is non-binary, ask them for their assigned gender at birth.
 
 After the conversation, return the data in THAT format ONLY. No other text should be in that message. Make sure to ask 
