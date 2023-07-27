@@ -142,7 +142,7 @@ if "{" in st.session_state['generated'][-1]:
    bp_treatment = data["blood_pressure_treatment"]
 
    result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
-   percent = result['percent_risk'])
+   percent = result['percent_risk']
    st.write(percent)
    st.session_state.context.append({'role':'user', 'content':"My percent risk is", percent, """. Can you please restate my 
    percent calculated risk and tell me
