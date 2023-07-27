@@ -112,6 +112,7 @@ def check_for_risk():
       bp_treatment = data["blood_pressure_treatment"]
    
       result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
+      st.write(result)
       percent = result['percent_risk']
       st.write(percent)
       st.session_state.context.append({'role':'user', 'content':"""My percent risk is """ + percent + """. Please restate my percent risk
