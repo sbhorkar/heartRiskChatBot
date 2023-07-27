@@ -142,5 +142,5 @@ if "{" in st.session_state['generated'][-1]:
    bp_treatment = data["blood_pressure_treatment"]
 
    result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
-   st.write(result['status'], result['message'])
+   st.write(result['status'], result['message'], result['percent_risk'])
    
