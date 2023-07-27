@@ -122,13 +122,8 @@ if 'past' not in st.session_state:
 
 # We will get the user's input by calling the get_text function
 def get_text():
-    user_input = st.text_input("You: ", key="input")
-    submit_button = st.button("Submit", key="submit_button")
-
-    if submit_button:
-        st.session_state.user_input = user_input
-        st.text_input("You: ", value='', key="input")
-        return st.session_state.user_input
+    input_text = st.text_input("You: ", "", key="input")
+    return input_text
 
 # Applying the user input box
 with input_container:
