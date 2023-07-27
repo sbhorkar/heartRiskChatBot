@@ -122,7 +122,7 @@ def check_for_risk():
          
          """})
          st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
-      elif 422" in result['status']:
+      elif 422 in result['status']:
          errors = ' '.join(result['errors'])
          st.write(errors)
          st.session_state.context.append({'role':'system', 'content':"""We could not proceeed due to these errors: """ + errors + """. 
