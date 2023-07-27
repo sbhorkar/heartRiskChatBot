@@ -110,7 +110,7 @@ def check_for_risk():
    
       result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
       st.write(result)
-      if 200 in result['status']:
+      if "OK" in result['message']:
          percent = result['percent_risk']
          st.write(percent)
          st.session_state.context.append({'role':'system', 'content':"""The user's percent risk is """ + percent + """. Please restate 
@@ -122,7 +122,7 @@ def check_for_risk():
          
          """})
          st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
-      elif 422 in result['status']:
+      elif "errors" in result['message']:
          errors = ' '.join(result['errors'])
          st.write(errors)
          st.session_state.context.append({'role':'system', 'content':"""We could not proceeed due to these errors: """ + errors + """. 
