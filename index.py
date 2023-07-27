@@ -125,6 +125,7 @@ with response_container:
 
 if "{" in st.session_state['generated'][-1]:
    last_message = st.session_state['generated'][-1]
+   st.session_state.generated.pop()
 
    json_start = last_message.index('{')
    json_end = last_message.index('}')
@@ -147,3 +148,12 @@ if "{" in st.session_state['generated'][-1]:
    st.session_state.context.append({'role':'user', 'content':"""My percent risk is {}. Can you please restate my 
    percent calculated risk and tell me what the next steps are? Should I go see a health professional?? What should I do?"""})
    st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
+
+with response_container:
+    if user_input:
+        collect_messages(user_input)
+    if st.session_state['generated']:
+        for i in range(len(st.session_state['generated'])):
+            message(st.session_state['past'][i+len(st.session_state['generated']], is_user=True, key=str(i) + '_user')
+            message(st.session_state['generated'][i], key=str(i+len(st.session_state['generated']), logo='https://www.freepnglogos.com/uploads/heart-png/emoji-heart-33.png')
+
