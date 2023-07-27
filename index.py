@@ -17,7 +17,7 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions! 
 """
 
-context = [ {'role':'user', 'content':"""Assume the role of a medical assistant. Please obtain the following information from the user, and 
+context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from the user, and 
 fill in the  structure below. 
 Obtain each property from the user ONE-BY-ONE, not all together, so
 they don/'t feel overwhelmed. Use questions that reflect a kind medical assistant. For example, after asking about gender, 
@@ -110,14 +110,22 @@ def check_for_risk():
    
       result = framingham_10year_risk(gender, age, total_cholesterol, hdl_cholesterol, systolic_bp, smoker, bp_treatment)
       st.write(result)
+      if "OK" not in result['message']:
+         error = result['errors']
+         st.session_state.context.append({'role':'system', 'content':"""We could not proceeed due to these errors: """ + error + """. 
+
+         Please correct the errors with the user and print out the final JSON again.
+      
+         """})
+         st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
       percent = result['percent_risk']
       st.write(percent)
-      st.session_state.context.append({'role':'user', 'content':"""My percent risk is """ + percent + """. Please restate my percent risk
-      in the format below:
+      st.session_state.context.append({'role':'system', 'content':"""The user's percent risk is """ + percent + """. Please restate 
+      their risk in the format below:
 
       Your percent risk of heart disease is _____. 
 
-      If the percent in very high, console the user after giving them the news and assure them everything will be okay.
+      If the percent is very high, console the user after giving them the news and assure them everything will be okay.
       
       """})
       st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
