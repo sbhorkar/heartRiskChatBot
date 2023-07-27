@@ -87,7 +87,6 @@ def check_for_risk():
       st.write(result)
       if "OK" in result['message']:
          percent = result['percent_risk']
-         st.write(percent)
          st.session_state.context.append({'role':'system', 'content':"""The user's percent risk is """ + percent + """. Please restate 
          their risk in the format below:
    
@@ -99,7 +98,6 @@ def check_for_risk():
          st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
       elif "errors" in result['message']:
          errors = ' '.join(result['errors'])
-         st.write(errors)
          st.session_state.context.append({'role':'system', 'content':"""We could not proceeed due to these errors: """ + errors + """. 
 
          Please correct the errors with the user and print out the final JSON again.
@@ -124,8 +122,13 @@ if 'past' not in st.session_state:
 
 # We will get the user's input by calling the get_text function
 def get_text():
-    input_text = st.text_input("You: ", "", key="input")
-    return input_text
+    if 'input' not in st.session_state:
+        st.session_state.input = ''
+    st.session_state.input = st.text_input("You: ", st.session_state.input, key="input")
+    if st.session_state.input:
+        temp = st.session_state.input
+        st.session_state.input = ''
+        return temp
 
 # Applying the user input box
 with input_container:
