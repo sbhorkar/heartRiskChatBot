@@ -91,7 +91,7 @@ def collect_messages(prompt):
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response)
 
-def check_for_risk:
+def check_for_risk():
    if "{" in st.session_state['generated'][-1]:
    last_message = st.session_state['generated'][-1]
    st.session_state.generated.pop()
