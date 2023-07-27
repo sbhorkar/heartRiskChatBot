@@ -2,4 +2,3 @@ streamlit
 openai
 streamlit_chat
 git+https://github.com/sbhorkar/framingham10yr
-logging
