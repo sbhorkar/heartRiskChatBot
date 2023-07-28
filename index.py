@@ -117,7 +117,7 @@ if 'generated' not in st.session_state:
     st.session_state.context.append({'role':'assistant', 'content':f"{response}"})
 
 if 'past' not in st.session_state:
-    st.session_state['past'] = ['']
+    st.session_state['past'] = ['Hi!']
 
 # We will get the user's input by calling the get_text function
 def get_text():
