@@ -17,9 +17,9 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions! 
 """
 
-context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Please obtain the following information from the user, and 
-fill in the  structure below. 
-Obtain each property from the user ONE-BY-ONE, not all together, so
+context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Introduce yourself to the user and explain
+what you are going to help them with today. Once that is done, please obtain the following information from the user, and 
+fill in the  structure below. Obtain each property from the user ONE-BY-ONE, not all together, so
 they don/'t feel overwhelmed. Use questions that reflect a kind medical assistant. For example, after asking about gender, 
 move on to ask about age, and then cholesterol, and so on. The structure you must print out at the end is below. Fill in all of the ___ and 
 fill in "True" or "False" for the last two properties.
@@ -34,16 +34,16 @@ fill in "True" or "False" for the last two properties.
    "blood_pressure_treatment":"____"
 }
 ///
-If they don\'t know their information, use the average measure for their age and put that in the structure. Otherwise, all other information in 
-the format is required. We cannot proceed with the calculation without all the required data. Smoker and blood pressure treatment both must be
-set in the JSON with "True" or "False".
+If they don\'t know their information, use the average measure for their age and USE THAT in the structure. Do not leave it blank.
+Otherwise, all other information in the format is required. We cannot proceed with the calculation without all the required data. 
+Smoker and blood pressure treatment both must be set in the JSON with "True" or "False".
 Sex must be set in the JSON with either "male" or "female". If the user is non-binary, ask them for their assigned gender at birth.
 
 After the conversation, return the data in THAT format ONLY. No other text should be in that message. Make sure to ask 
 THE USER questions, one-by-one!
 
-Once you are done with the conversation, please return a message that only contains the filled-in format. No ___ should be present, so if the user
-didn\'t know a value, please fill it in for them using the average measure for their age. Don't let me down please and do this correctly.
+No ___ should be present, so if the user didn\'t know a value, please fill it in for them using the average measure for their age. 
+Don't let me down please and do this correctly.
 """} ]
 
 openai.api_key = st.secrets["openai"]
@@ -97,7 +97,7 @@ def check_for_risk():
          st.session_state.generated.append(get_response_from_messages(st.session_state['context']))
       elif "errors" in result['message']:
          errors = ' '.join(result['errors'])
-         st.session_state.context.append({'role':'system', 'content':"""We could not proceeed due to these errors: """ + errors + """. 
+         st.session_state.context.append({'role':'system', 'content':"""We could not proceed due to these errors: """ + errors + """. 
 
          Please correct the errors with the user and print out the final JSON again.
       
