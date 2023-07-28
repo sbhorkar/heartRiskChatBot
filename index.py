@@ -123,12 +123,12 @@ if 'input' not in st.session_state:
     st.session_state.input = ''
 
 def submit():
-    st.session_state.input = st.session_state.widget
+    st.session_state.input = st.session_state.user_input
     st.session_state.user_input = ''
 
 # We will get the user's input by calling the get_text function
 def get_text():
-    input_text = st.text_input('', key='user_input', on_change=submit)
+    input_text = st.text_input('You:', key='user_input', on_change=submit)
     return input_text
 
 # Applying the user input box
