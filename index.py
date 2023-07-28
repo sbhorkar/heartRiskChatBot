@@ -57,7 +57,7 @@ def get_response_from_messages(messages):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
-        temperature=1,
+        temperature=0.7,
     )
     return response.choices[0].message["content"]
 
@@ -92,10 +92,8 @@ def check_for_risk():
       if "OK" in result['message']:
          percent = result['percent_risk']
          st.session_state.context.append({'role':'system', 'content':"""The user's percent risk is """ + percent + """. Please restate 
-         their risk in the format below:
-   
-         Your percent risk of heart disease is _____. 
-   
+         their exact percent risk so they know. 
+         
          If the percent is very high, console the user after giving them the news and assure them everything will be okay.
          
          """})
