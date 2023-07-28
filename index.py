@@ -40,6 +40,11 @@ Smoker and blood pressure treatment both must be set in the JSON with "True" or 
 Sex must be set in the JSON with either "male" or "female". If the user is non-binary, ask them for their assigned gender at birth.
 Age, total cholesterol, HDL cholesterol, and blood pressure must be filled in with INTEGERS ONLY. Here are the restrictions:
 
+Age must be between 20 and 79. 
+Total cholesterol must be within the range of 130 to 320.
+HDL cholesterol must be within the range of 20 to 100.
+Systolic blood pressure must be within the range of 90 to 200.
+
 After the conversation, return the data in THAT format ONLY. No other text should be in that message. Make sure to ask 
 THE USER questions, one-by-one!
 
