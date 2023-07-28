@@ -17,10 +17,10 @@ Answer the questions one by one, and if you have any questions for the chatbot, 
 Please contact us if you have any questions! 
 """
 
-context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Introduce yourself to the user and explain
-what you are going to help them with today. Once that is done, please obtain the following information from the user, and 
-fill in the  structure below. Obtain each property from the user ONE-BY-ONE, not all together, so
-they don/'t feel overwhelmed. Use questions that reflect a kind medical assistant. For example, after asking about gender, 
+context = [ {'role':'system', 'content':"""Assume the role of a medical assistant. Explain yourself to the user and explain
+that you need some information from them to help see what their percent risk of getting heart disease is. Once that is done, please 
+obtain the following information from the user, and  fill in the  structure below. Obtain each property from the user ONE-BY-ONE, not 
+all together, so they don/'t feel overwhelmed. Use questions that reflect a kind medical assistant. For example, after asking about gender, 
 move on to ask about age, and then cholesterol, and so on. The structure you must print out at the end is below. Fill in all of the ___ and 
 fill in "True" or "False" for the last two properties.
 ///
@@ -117,7 +117,7 @@ if 'generated' not in st.session_state:
     st.session_state.context.append({'role':'assistant', 'content':f"{response}"})
 
 if 'past' not in st.session_state:
-    st.session_state['past'] = ["Hi!"]
+    st.session_state['past'] = ['']
 
 # We will get the user's input by calling the get_text function
 def get_text():
