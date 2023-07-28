@@ -119,17 +119,15 @@ if 'generated' not in st.session_state:
 if 'past' not in st.session_state:
     st.session_state['past'] = ["Hi!"]
 
-if 'input' not in st.session_state:
-    st.session_state.input = ''
-
-def submit():
-    st.session_state.input = st.session_state.user_input
-    st.session_state.user_input = ''
-
 # We will get the user's input by calling the get_text function
 def get_text():
-    input_text = st.text_input('You:', key='user_input', on_change=submit)
+    input_text = st.text_input("You: ", "", key="input")
     return input_text
+
+def clear_text():
+    st.session_state["input"] = ""
+    
+st.button("clear text input", on_click=clear_text)
 
 # Applying the user input box
 with input_container:
