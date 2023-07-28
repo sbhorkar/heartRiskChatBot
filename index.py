@@ -127,7 +127,7 @@ def get_text():
 def clear_text():
     st.session_state["input"] = ""
     
-st.button("clear text input", on_click=clear_text)
+st.button("Clear text input", on_click=clear_text)
 
 # Applying the user input box
 with input_container:
