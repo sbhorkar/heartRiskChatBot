@@ -54,14 +54,15 @@ Don't let me down please and do this correctly.
 """} ]
 
 openai.api_key = st.secrets["openai"]
+client = OpenAI()
 
 def get_response_from_messages(messages):
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
         messages=messages,
-        temperature=0.7,
+        temperature=0.7
     )
-    return response.choices[0].message["content"]
+    return response['choices'][0]['message']['content']
 
 def collect_messages(prompt):
     st.session_state.context.append({'role':'user', 'content':f"{prompt}"})
