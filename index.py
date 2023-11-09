@@ -61,7 +61,7 @@ def get_response_from_messages(messages):
         messages=messages,
         temperature=0.7
     )
-    return response.choices[0].message["content"]
+    return response.choices[0].message.content
 
 def collect_messages(prompt):
     st.session_state.context.append({'role':'user', 'content':f"{prompt}"})
