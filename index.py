@@ -127,7 +127,7 @@ if 'past' not in st.session_state:
 # We will get the user's input by calling the get_text function
 def get_text():
 #    input_text = st.chat_input(placeholder="", key="input")
-    input_text = st.text_input(placeholder="", key="input")
+    input_text = st.text_input("Enter message here:", placeholder="", key="input")
     return input_text
 
 # Applying the user input box
